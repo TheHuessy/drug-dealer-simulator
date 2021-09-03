@@ -1,0 +1,59 @@
+What will this look like?
+
+Gameplay:
+    Player starts with X money and/or debt
+    Turn based
+    each turn:
+        show available drugs and prices
+        make purchases/sales
+            prices don't change until you leave (turn over)
+        New wares each jump
+            Types change as well as prices
+                Different areas offer/don't offer certain goods based on reputation
+                    Should reputation bean actual value?
+        turn ends when you move to another area
+
+
+Later on:
+    Random 'events' as you move from place to place
+        cops
+        find money
+        dramatic price shifts
+
+
+
+Classes
+    Neighborhood
+        ATT:
+            name
+            wares/market
+            reputation
+    Market
+        ATT:
+            drugs and quantities
+        MET:
+            sell_drug_to_player
+            buy_drug_from_player
+    Drugs
+        ATT:
+            name
+            value
+            quantity
+    Player
+        ATT:
+            money
+            storage_space
+            [health]
+            [weapon_strength]
+        MET:
+            buy_drugs
+            sell_drugs
+            move_to_new_neighborhood
+    Storage
+        ATT:
+            drugs and quantities
+        MET:
+            remove_item
+            add_item
+
+
