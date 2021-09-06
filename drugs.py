@@ -87,6 +87,9 @@ class Drug:
         global drug_data
         return(drug_data[drug_type])
 
+    def _get_drug_price(self):
+        self.current_cost = random.choice(range(self.floor_price, self.max_price+1))
+
     def __init__(self, drug_type, value=None):
         if not check_drug_type(drug_type):
             raise NameError("{} is not a valid drug type".format(drug_type))
@@ -102,4 +105,7 @@ class Drug:
 
         for key in drug_metadata:
             setattr(Drug, key, drug_metadata[key])
+
+        ## Generate 'current_cost' value
+        self.get_drug_price()
 
