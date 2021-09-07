@@ -5,7 +5,7 @@
 ## Methods
 
 
-from random import shuffle
+from random import shuffle, choice
 
 #drug_types = ["Acid", "Speed", "Weed", "Coke", "Shrooms", "Aderall", "Glue", "Heroin"]
 
@@ -98,7 +98,7 @@ class Drug:
         return(drug_data[drug_type])
 
     def _get_drug_price(self):
-        self.current_cost = random.choice(range(self.floor_price, self.max_price+1))
+        self.current_cost = choice(range(self.floor_price, self.max_price+1))
 
 #    def _get_drug_quantity(self):
 #        self.quantity = #How to gauge quantity based on no neighborhood data?    ###random.choice(range(self.floor_price, self.max_price+1))

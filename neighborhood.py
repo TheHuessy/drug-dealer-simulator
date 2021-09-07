@@ -1,7 +1,7 @@
 ## Neighborhood
 
 from drugs import Drug, drug_data
-from random import randrange, sample, choice
+from random import randrange
 
 hood_data = {
         "Jamaica Plain": {
@@ -62,6 +62,7 @@ class Market:
         if not event:
             return(randrange(4,7,1))
         ## Possible place for event logic
+
     def _get_rep(self, neighborhood_name):
         return(hood_data[neighborhood_name]['reputation'])
 
@@ -79,7 +80,7 @@ class Market:
 
     def _get_quantities(self, neighborhood_name):
         rep = self._get_rep(neighborhood_name)
-        rep_index = get_rep_impact_vector(rep)
+        rep_index = get_rep_impact_factor(rep)
         supply_network = self._get_sup_net(neighborhood_name)
 
 
@@ -88,7 +89,8 @@ class Market:
             price = self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['current_cost']
            # base +(2x supply_network) +(rep_index*(0.4*rep)) +(rep*(1/price))
             quant_calc = (base + (rep_index*(0.4*rep)) + (rep*(1/price)) * (supply_netowrk))
-            self.drugs[drug_idx]][list(self.drugs[drug_idx].keys())[0]]['quantity'] = quant_calc
+
+            self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['quantity'] = quant_calc
 
 
 
@@ -114,9 +116,6 @@ class Market:
         ## Generate the different drug objects and save as list[?]
             ## Make it an attribute like drugs or soemthing
         self._get_quantities(neighborhood_name)
-
-
-
 
 
 class Neighborhood:
