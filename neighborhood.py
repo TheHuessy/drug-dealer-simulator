@@ -96,8 +96,10 @@ class Market:
             self.drugs[drug_idx].quantity = int(quant_calc)
 
     def show(self):
-        for drug in self.drugs:
-            print("{}: ${} [{}]".format(drug.name, drug.current_cost, drug.quantity))
+        [print("{}: ${} [{}]".format(drug.name, drug.current_cost, drug.quantity)) for drug in self.drugs if drug.quantity > 0] 
+
+#    def buy_drug(self, drug_name, quantity):
+
 
 
         
