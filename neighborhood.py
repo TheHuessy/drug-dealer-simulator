@@ -83,16 +83,21 @@ class Market:
         rep_index = get_rep_impact_factor(rep)
         supply_network = self._get_sup_net(neighborhood_name)
 
-
         for drug_idx in range(len(self.drugs)):
-            base = self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['base_quantity']
-            price = self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['current_cost']
+#            breakpoint()
+            #base = self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['base_quantity']
+            base = self.drugs[drug_idx].base_quantity
+            #price = self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['current_cost']
+            price = self.drugs[drug_idx].current_cost
            # base +(2x supply_network) +(rep_index*(0.4*rep)) +(rep*(1/price))
-            quant_calc = (base + (rep_index*(0.4*rep)) + (rep*(1/price)) * (supply_netowrk))
+            quant_calc = (base + (rep_index*(0.05*rep)) + (rep*(1/price)) * (supply_network))
 
-            self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['quantity'] = quant_calc
+            #self.drugs[drug_idx][list(self.drugs[drug_idx].keys())[0]]['quantity'] = quant_calc
+            self.drugs[drug_idx].quantity = int(quant_calc)
 
-
+    def show(self):
+        for drug in self.drugs:
+            print("{}: ${} [{}]".format(drug.name, drug.current_cost, drug.quantity))
 
 
         
