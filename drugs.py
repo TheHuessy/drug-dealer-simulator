@@ -1,13 +1,4 @@
-## Drugs
-
-## Attributes
-
-## Methods
-
-
 from random import shuffle, choice
-
-#drug_types = ["Acid", "Speed", "Weed", "Coke", "Shrooms", "Aderall", "Glue", "Heroin"]
 
 drug_data = {
                 "Acid": {
@@ -82,19 +73,12 @@ drug_data = {
                     }
                 }
 
-def check_drug_type(drug_type):
-    global drug_data
-    #drug_types = ["Acid", "Speed", "Weed", "Coke", "Shrooms", "Aderall", "Glue", "Heroin"]
-
-    if drug_type not in drug_data.keys():
-        return(False)
-
-    return(True)
+def check_drug_type(drug_type: str):
+    return drug_type.upper() in [x.upper() for x in drug_data.keys()]
 
 class Drug:
 
-    def _get_drug_metadata(self, drug_type):
-        global drug_data
+    def _get_drug_metadata(self, drug_type: str):
         return(drug_data[drug_type])
 
     def _get_drug_price(self):
@@ -104,17 +88,12 @@ class Drug:
 #        self.quantity = #How to gauge quantity based on no neighborhood data?    ###random.choice(range(self.floor_price, self.max_price+1))
 
 
-    def __init__(self, drug_type, value=None):
+    def __init__(self, drug_type: str, value: int = 0):
         if not check_drug_type(drug_type):
             raise NameError("{} is not a valid drug type".format(drug_type))
 
         self.name = drug_type
-
-        if value:
-            self.value = value
-        else:
-            self.value = 0
-
+        self.value = value
         drug_metadata = self._get_drug_metadata(self.name)
 
         for key in drug_metadata:

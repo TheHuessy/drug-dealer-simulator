@@ -42,43 +42,38 @@ hood_data = {
             }
         }
 
-def get_rep_impact_factor(reputation):
+def get_rep_impact_factor(reputation: int) -> int:
     if reputation <= 60:
-        return(1)
+        return 1
     elif reputation < 90:
-        return(-1)
+        return -1
     elif reputation <=100:
-        return(1)
+        return 1
 
-def check_neighborhood_name(neighborhood_name):
-    global hood_data
-    if neighborhood_name not in hood_data.keys():
-        return(False)
-    return(True)
+def check_neighborhood_name(neighborhood_name: str) -> bool:
+    return neighborhood_name.upper() in [x.upper() for x in hood_data]
 
 class Market:
 
-    def _drug_numbers(self, event=None):
+    def _drug_numbers(self, event: str = None) -> int:
         if not event:
-            return(randrange(4,7,1))
+            return randrange(4,7,1)
         ## Possible place for event logic
 
-    def _get_rep(self, neighborhood_name):
-        return(hood_data[neighborhood_name]['reputation'])
+    def _get_rep(self, neighborhood_name: str) -> int:
+        return hood_data[neighborhood_name]['reputation']
 
-    def _get_sup_net(self, neighborhood_name):
-        return(hood_data[neighborhood_name]['supply_network'])
+    def _get_sup_net(self, neighborhood_name: str) -> int:
+        return hood_data[neighborhood_name]['supply_network']
 
-    def _get_drugs_list(self, neighborhood_name):
+    def _get_drugs_list(self, neighborhood_name: str) -> list:
         rep = self._get_rep(neighborhood_name)
-        drugs_list = [x for x in drug_data.keys() if drug_data[x]['max_rep'] >= rep and drug_data[x]['min_rep'] <= rep]
-        return(drugs_list)
+        return [x for x in drug_data if drug_data[x]['max_rep'] >= rep and drug_data[x]['min_rep'] <= rep]
 
-    def _get_drugs(self, drugs_list):
-        drugs = [Drug(drug) for drug in drugs_list]
-        return(drugs)
+    def _get_drugs(self, drugs_list: list) -> list:
+        return [Drug(drug) for drug in drugs_list]
 
-    def _get_quantities(self, neighborhood_name):
+    def _get_quantities(self, neighborhood_name: str) -> None:
         rep = self._get_rep(neighborhood_name)
         rep_index = get_rep_impact_factor(rep)
         supply_network = self._get_sup_net(neighborhood_name)
@@ -113,12 +108,12 @@ class Market:
                 ## This should be new value
 
 
-    def __init__(self, neighborhood_name, event=None):
+    def __init__(self, neighborhood_name: str, event: str = None):
         ## Pick X number of drugs
         number_of_drugs = self._drug_numbers(event)
         ## Get list of drugs based on neighborhood reputation
         drugs_list = self._get_drugs_list(neighborhood_name)
-        
+
         self.drugs = self._get_drugs(drugs_list)
         ## Generate the different drug objects and save as list[?]
             ## Make it an attribute like drugs or soemthing
@@ -127,13 +122,13 @@ class Market:
 
 class Neighborhood:
 
-    def __init__(self, neighborhood_name):
+    def __init__(self, neighborhood_name: str):
 
         if not check_neighborhood_name(neighborhood_name):
             raise NameError("{} is not a valid neighborhood name".format(neighborhood_name))
 
         self.name = neighborhood_name
-        
+
         for key in hood_data[self.name]:
             setattr(Neighborhood, key, hood_data[self.name][key])
 
